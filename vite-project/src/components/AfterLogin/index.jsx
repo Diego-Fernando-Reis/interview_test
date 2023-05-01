@@ -7,6 +7,8 @@ import { selectUser } from '../../userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../userSlice';
+import 'animate.css';
+import Preloader from '../Preloader';
 
 function AfterLogin(){
   const [title, setTitle] = useState('');
@@ -17,6 +19,7 @@ function AfterLogin(){
   const [posts, setPosts] = useState([]);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
   const {user} = useSelector(selectUser)
   const dispatch = useDispatch()
@@ -102,50 +105,67 @@ function AfterLogin(){
       });
   }, [offset]);
 
-  return(
-    <div className="AfterLogin">
-      <div className="header">
-        <h2>CodeLeap Network</h2>
-        <h2>{user}</h2>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+  useEffect(() => {
+    const handleStartLoading = () => setIsLoading(true);
+    const handleEndLoading = () => setIsLoading(false);
 
-      <ContentBlock title={`What's on your mind?`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
-        <button className={active ? 'disabled-button' : ''} disabled={active}>Create</button>
-      </ContentBlock>
+    window.addEventListener('beforeunload', handleStartLoading);
+    window.addEventListener('load', handleEndLoading);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleStartLoading);
+      window.removeEventListener('load', handleEndLoading);
+    };
+  }, []);
+
+  if(isLoading){
+    return <Preloader />
+  }else{
+    return(
+      <div className="AfterLogin">
+        <div className="header">
+          <h2>CodeLeap Network</h2>
+          <h2>{user}</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+
+        <ContentBlock title={`What's on your mind?`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
+          <button className={active ? 'disabled-button' : ''} disabled={active}>Create</button>
+        </ContentBlock>
 
 
-      {posts?.map(post => (
-        <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
-      ))}
-      <div className="more">
-      <button onClick={() => setOffset(offset + 10)}>More</button>
-      </div>
-      
+        {posts?.map(post => (
+          <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
+        ))}
+        <div className="more">
+        <button onClick={() => setOffset(offset + 10)}>More</button>
+        </div>
+        
 
-      {showDeleteArea && (
-        <div className="deleteArea">
-          <div className="intern">
-            <div className="title">
-              <h3>Are you sure you want to delete this item?</h3>
-            </div>
-            <div className="buttons">
-              <button className='cancel' onClick={handleCancelClick}>Cancel</button>
-              <button className='delete' onClick={handleSubmitDelete}>Delete</button>
+        {showDeleteArea && (
+          <div className="deleteArea">
+            <div className="intern">
+              <div className="title">
+                <h3>Are you sure you want to delete this item?</h3>
+              </div>
+              <div className="buttons">
+                <button className='cancel' onClick={handleCancelClick}>Cancel</button>
+                <button className='delete' onClick={handleSubmitDelete}>Delete</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {showEditArea && (
-        <div className="editArea">
-          <ContentBlock title={`Edit item`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
-            <button onClick={handleCancelClick2}>Cancel</button>
-            <button className={active ? 'disabled-button' : ''} disabled={active}>Save</button>
-          </ContentBlock>
-        </div>
-      )}
-    </div>
-  )
+        {showEditArea && (
+          <div className="editArea">
+            <ContentBlock title={`Edit item`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
+              <button onClick={handleCancelClick2}>Cancel</button>
+              <button className={active ? 'disabled-button' : ''} disabled={active}>Save</button>
+            </ContentBlock>
+          </div>
+        )}
+      </div>
+    )
+  }
 }
 export default AfterLogin;

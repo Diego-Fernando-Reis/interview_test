@@ -1,6 +1,6 @@
 function Post(props){
   return(
-    <div className="postArea">
+    <div className="postArea animate__animated animate__slideInLeft">
       <div className="headerPost">
         <h2>My first Post at CodeLeap Network!</h2>
         <div className={`buttons ${props.show}`}>
