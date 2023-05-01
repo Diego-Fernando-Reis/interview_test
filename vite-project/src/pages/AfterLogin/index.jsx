@@ -1,14 +1,14 @@
 import './style.css'
 import {useEffect, useState } from 'react';
-import Post from '../post';
-import ContentBlock from '../ContentBlock';
+import Post from '../../components/post';
+import ContentBlock from '../../components/ContentBlock';
 import axios from 'axios';
-import { selectUser } from '../../userSlice';
+import { selectUser } from '../../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../userSlice';
+import { logout } from '../../redux/userSlice';
 import 'animate.css';
-import Preloader from '../Preloader';
+import Preloader from '../../components/Preloader';
 
 function AfterLogin(){
   const [title, setTitle] = useState('');

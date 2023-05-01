@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { userReducers } from '../actions/userReducers';
 
 export const slice = createSlice({
   name: 'user',
@@ -6,14 +7,7 @@ export const slice = createSlice({
     user: '',
     isLogged: false,
   },
-  reducers: {
-    changeUser(state, {payload}){
-      return {...state, isLogged: true, user: payload}
-    },
-    logout(state){
-      return {...state, isLogged: false, user: ''}
-    }
-  }
+  reducers: userReducers,
 })
 
 export const {changeUser, logout} = slice.actions

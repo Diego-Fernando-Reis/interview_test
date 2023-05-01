@@ -2,9 +2,9 @@ import './style.css'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { changeUser } from '../../userSlice';
+import { changeUser } from '../../redux/userSlice';
 import {useDispatch} from 'react-redux'
-import Preloader from '../Preloader';
+import Preloader from '../../components/Preloader';
 
 function Login(){
   const [username, setUsername] = useState('');
