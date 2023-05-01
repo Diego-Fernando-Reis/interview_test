@@ -230,3 +230,13 @@ form button{
 .hide{
   display: none;
 }
+
+.more{
+  margin: 20px auto;
+  width: 100px;
+  text-align: center;
+}
+
+.more button{
+  border: none;
+}

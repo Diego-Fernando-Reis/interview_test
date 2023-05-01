@@ -1,14 +1,16 @@
 import './style.css'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { changeUser } from '../../userSlice';
 import {useDispatch} from 'react-redux'
+import Preloader from '../Preloader';
 
 function Login(){
   const [username, setUsername] = useState('');
   const [active, setActive] = useState(true)
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const navigateTo = useNavigate();
@@ -42,6 +44,22 @@ function Login(){
     setActive(!event.target.value);
   };
 
+  useEffect(() => {
+    const handleStartLoading = () => setIsLoading(true);
+    const handleEndLoading = () => setIsLoading(false);
+
+    window.addEventListener('beforeunload', handleStartLoading);
+    window.addEventListener('load', handleEndLoading);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleStartLoading);
+      window.removeEventListener('load', handleEndLoading);
+    };
+  }, []);
+
+  if(isLoading){
+    return <Preloader />
+  }else{
   return(
     <>
       <div className="background">
@@ -69,7 +87,7 @@ function Login(){
         <div className="error">{error}</div>
       </div>
     </>
-  )
+  )}
 }
 
 export default Login;

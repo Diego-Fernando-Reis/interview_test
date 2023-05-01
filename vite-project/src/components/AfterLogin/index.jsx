@@ -16,6 +16,7 @@ function AfterLogin(){
   const [showEditArea, setShowEditArea] = useState(false);
   const [posts, setPosts] = useState([]);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
+  const [offset, setOffset] = useState(0);
   const navigateTo = useNavigate();
   const {user} = useSelector(selectUser)
   const dispatch = useDispatch()
@@ -92,14 +93,14 @@ function AfterLogin(){
   };
 
   useEffect(() => {
-    axios.get('https://dev.codeleap.co.uk/careers/')
+    axios.get(`https://dev.codeleap.co.uk/careers/?offset=${offset}`)
       .then(response => {
-        setPosts(response.data.results);
+        setPosts([...posts, ...response.data.results]);
       })
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [offset]);
 
   return(
     <div className="AfterLogin">
@@ -117,6 +118,10 @@ function AfterLogin(){
       {posts?.map(post => (
         <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
       ))}
+      <div className="more">
+      <button onClick={() => setOffset(offset + 10)}>More</button>
+      </div>
+      
 
       {showDeleteArea && (
         <div className="deleteArea">
