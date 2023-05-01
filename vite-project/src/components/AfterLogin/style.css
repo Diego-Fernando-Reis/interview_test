@@ -1,0 +1,228 @@
+.header{
+  width: 100%;
+  background-color: #7695EC;
+  padding: 27px 37px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2{
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 25.78px;
+  color: white;
+}
+
+.newPost{
+  border: 1px solid #999999;
+  padding: 24px;
+  max-width: 752px;
+  margin: 24px auto;
+  border-radius: 16px;
+}
+
+.newPost h3{
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 25.78px;
+  color: black;
+  margin-bottom: 24px;
+}
+
+form label{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+}
+
+form input{
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 8px 10.68px;
+  border-radius: 8px;
+  border: 1px solid #777777;
+  margin-top: 8px;
+}
+
+form textarea{
+  margin-top: 8px;
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 7px 10.68px;
+  border-radius: 8px;
+  resize: none;
+  border: 1px solid #777777;
+}
+
+form .button{
+  display: flex;
+  justify-content: flex-end;
+}
+
+form button{
+  background-color: #7695EC;
+  padding: 6.79px 29.19px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: white;
+}
+
+.postArea{
+  max-width: 758px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #999999;
+  margin-bottom: 24px;
+}
+
+.headerPost{
+  width: 100%;
+  background-color: #7695EC;
+  padding: 27px 37px;
+  display: flex;
+}
+
+.post{
+  margin: 24px 24.96px;
+}
+
+.headerPost h2{
+  width: 80%;
+}
+
+.buttons{
+  display: flex;
+  justify-content: flex-end;
+  width: 20%;
+}
+
+.buttons i{
+  margin-left: 34.2px;
+  font-size: 23.4px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.autorData{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+}
+
+.autor p{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #777777;
+}
+
+.date p{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  color: #777777;
+}
+
+.content p{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.deleteArea{
+  position: fixed;
+  background-color: rgba(119, 119, 119, 0.8);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.deleteArea .intern{
+  width: 660px;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border-radius: 16px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 24px;
+
+}
+.deleteArea h3{
+  margin-bottom: 40px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+}
+.deleteArea .buttons{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.deleteArea button{
+  padding: 7px 33px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel{
+  background: #FFFFFF;
+  border: 1px solid #999999;
+  color: #000000;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.deleteArea .delete{
+  background: #FF5151;
+  border: 1px solid #999999;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  margin-left: 16px;
+}
+
+.editArea{
+  position: fixed;
+  background-color: rgba(119, 119, 119, 0.8);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.editArea .newPost{
+  border: 1px solid #999999;
+  padding: 24px;
+  width: 752px;
+  margin: 24px auto;
+  border-radius: 16px;
+  background-color: #ffffff;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+
+}
