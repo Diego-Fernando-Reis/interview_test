@@ -1,9 +1,12 @@
 import './style.css'
-import { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../../Contexts/UserContext';
+import {useEffect, useState } from 'react';
 import Post from '../post';
 import ContentBlock from '../ContentBlock';
 import axios from 'axios';
+import { selectUser } from '../../userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../userSlice';
 
 function AfterLogin(){
   const [title, setTitle] = useState('');
@@ -13,8 +16,15 @@ function AfterLogin(){
   const [showEditArea, setShowEditArea] = useState(false);
   const [posts, setPosts] = useState([]);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
-  const { user } = useContext(UserContext);
-  console.log(user.username);
+  const navigateTo = useNavigate();
+  const {user} = useSelector(selectUser)
+  const dispatch = useDispatch()
+  console.log(user);
+
+  const handleLogout = () =>{
+    dispatch(logout())
+    navigateTo("/");
+  }
   
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -33,7 +43,7 @@ function AfterLogin(){
     const postData = {
       title: title,
       content: content,
-      username: user.username,
+      username: user,
       created_datetime: now
     };
 
@@ -74,7 +84,6 @@ function AfterLogin(){
       .then((response) => {
         console.log(response.data);
         setShowDeleteArea(false);
-        // atualize a lista de posts excluindo o post excluído
         setPosts(posts.filter((post) => post.id !== postIdToDelete));
       })
       .catch((error) => {
@@ -96,7 +105,8 @@ function AfterLogin(){
     <div className="AfterLogin">
       <div className="header">
         <h2>CodeLeap Network</h2>
-        <h2>{user.username}</h2>
+        <h2>{user}</h2>
+        <button onClick={handleLogout}>Logout</button>
       </div>
 
       <ContentBlock title={`What's on your mind?`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>

@@ -1,13 +1,14 @@
 import './App.css'
 import Rotas from '../Routes'
-import { UserProvider } from './Contexts/UserContext'
+import { Provider } from 'react-redux'
+import store from './store'
 
 function App() {
 
   return (
-    <UserProvider>
+    <Provider store={store}>
       <Rotas/>
-    </UserProvider>
+    </Provider>
   )
 }
 
