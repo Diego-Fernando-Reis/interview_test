@@ -182,3 +182,9 @@ button{
   transform-origin: -12vw 23vh;
   box-shadow: 14vmin 0 2.3673032911900442vmin currentColor;
 }
+
+@media screen and(max-width: 800px) {
+  .username{
+   width: 100%;
+  }
+}

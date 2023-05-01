@@ -18,12 +18,13 @@ function AfterLogin(){
   const [showEditArea, setShowEditArea] = useState(false);
   const [posts, setPosts] = useState([]);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
+  const [postIdToEdit, setPostIdToEdit] = useState(null);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
   const {user} = useSelector(selectUser)
   const dispatch = useDispatch()
-  console.log(user);
+  console.log(postIdToEdit);
 
   const handleLogout = () =>{
     dispatch(logout())
@@ -64,6 +65,27 @@ function AfterLogin(){
       });
   }
 
+  const handleSubmitEdit = (event) => {
+    event.preventDefault();
+
+    const now = new Date().toISOString(); 
+    const postData = {
+      title: title,
+      content: content
+    };
+
+    axios
+      .post(`https://dev.codeleap.co.uk/careers/${postIdToEdit}`, postData)
+      .then((response) => {
+        console.log(response.data);
+        setTitle('');
+        setContent('');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   const handleDeleteClick = (postId) => {
     setShowDeleteArea(true);
@@ -74,8 +96,9 @@ function AfterLogin(){
     setShowDeleteArea(false);
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = (postId) => {
     setShowEditArea(true);
+    setPostIdToEdit(postId)
   };
 
   const handleCancelClick2 = () => {
@@ -135,7 +158,7 @@ function AfterLogin(){
 
 
         {posts?.map(post => (
-          <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
+          <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={() => handleEditClick(post.id)} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
         ))}
         <div className="more">
         <button onClick={() => setOffset(offset + 10)}>More</button>
@@ -158,7 +181,7 @@ function AfterLogin(){
 
         {showEditArea && (
           <div className="editArea">
-            <ContentBlock title={`Edit item`} onsubmit={handleSubmit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
+            <ContentBlock title={`Edit item`} onsubmit={handleSubmitEdit} valueTitle={title} onchangeTitle={handleTitleChange} valueContent={content} onchangeContent={handleContentChange}>
               <button onClick={handleCancelClick2}>Cancel</button>
               <button className={active ? 'disabled-button' : ''} disabled={active}>Save</button>
             </ContentBlock>
