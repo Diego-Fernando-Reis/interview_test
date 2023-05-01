@@ -115,7 +115,7 @@ function AfterLogin(){
 
 
       {posts?.map(post => (
-        <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content}/>
+        <Post key={post.id} onclickDelete={() => handleDeleteClick(post.id)} onclickEdit={handleEditClick} autor={`@${post.username}`} date={post.created_datetime} content={post.content} show={user == post.username ? '' : 'hide'}/>
       ))}
 
       {showDeleteArea && (

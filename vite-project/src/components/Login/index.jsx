@@ -43,7 +43,20 @@ function Login(){
   };
 
   return(
-    
+    <>
+      <div className="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <div className='username'>
         <h3>Welcome to Codeleap network!</h3>
         <p>Please enter your username</p>
@@ -55,6 +68,7 @@ function Login(){
         </form>
         <div className="error">{error}</div>
       </div>
+    </>
   )
 }
 

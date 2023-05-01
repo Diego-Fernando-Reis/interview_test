@@ -3,7 +3,7 @@ function Post(props){
     <div className="postArea">
       <div className="headerPost">
         <h2>My first Post at CodeLeap Network!</h2>
-        <div className="buttons">
+        <div className={`buttons ${props.show}`}>
           <div className="delete" onClick={props.onclickDelete}>
             <i className="fa-sharp fa-solid fa-trash"></i>
           </div>
