@@ -75,7 +75,7 @@ function AfterLogin(){
     };
 
     axios
-      .post(`https://dev.codeleap.co.uk/careers/${postIdToEdit}`, postData)
+      .put(`https://dev.codeleap.co.uk/careers/${postIdToEdit}`, postData)
       .then((response) => {
         console.log(response.data);
         setTitle('');
